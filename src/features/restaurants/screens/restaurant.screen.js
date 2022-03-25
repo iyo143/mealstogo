@@ -1,20 +1,26 @@
-import React from "react";
+import React, {useContext} from "react";
 import { Searchbar } from 'react-native-paper';
 import { FlatList } from "react-native";
 import { RestaurantInfo } from "../components/retaurant-info.component";
 import { SafeContainer, SearchBarContainer, RestaurantCardContainer, RestaurantLIst } from "./rastaurant.screen.style";
+import { RestaurantContext } from "../../../services/restaurants/restaurant.context";
 
-export const RestaurantScreen = () => (
-    <SafeContainer >
+export const RestaurantScreen = () => {
+
+    const restaurantContext = useContext(RestaurantContext);
+    console.log(restaurantContext)
+    return(
+      <SafeContainer >
       <SearchBarContainer>
         <Searchbar/>
       </SearchBarContainer>
       <RestaurantLIst
-        data = {[{name:1},{name:2},{name:3},{name:4},{name:5},{name:6},{name:7},{name:8},{name:9},{name:10},{name:11},{name:12}]}
+        data = {restaurantContext.restaurants}
         renderItem = {()=> <RestaurantInfo/>}
         keyExtractor = {(item) => item.name}
         contentContainerStyle ={{padding:16}}
       />
-        
     </SafeContainer>
-);
+    );
+   
+};
