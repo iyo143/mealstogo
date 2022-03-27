@@ -5,10 +5,10 @@ import open from "../../../../assets/open";
 import { Spacer } from "../../../components/spacer/spacer.component";
 import { Text } from "../../../components/typography/text.component";
 import { Icon, Open, Title, RestaurantCard, RestaurantCardCover, Address, Info, Rating, SpaceBetween } from "./restaurant-info-card.styles";
-
+import { ActivityIndicator, Colors } from 'react-native-paper';
 
 export const RestaurantInfo = ({restaurant = {}}) => {
-
+    <ActivityIndicator animating={true} color={Colors.red800} />
     const{
         name = 'Some Restaurant', 
         icon =  "https://maps.gstatic.com/mapfiles/place_api/icons/v1/png_71/lodging-71.png",

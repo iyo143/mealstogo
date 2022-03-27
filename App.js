@@ -11,7 +11,7 @@ import { createBottomTabNavigator} from "@react-navigation/bottom-tabs";
 import { Text, View,  } from 'react-native';
 import { restaurantRequest } from "./src/services/restaurants/restaurant.service";
 import { RestaurantsContextProvider } from "./src/services/restaurants/restaurant.context";
-
+import { LocationContextProvider } from "./src/services/location/location.context";
 
 function RestoScreen(){
   return (
@@ -46,6 +46,7 @@ const createScreenOptions = ({route})=>{
     tabBarIcon: ({size, color})=>(
        <Ionicons name={iconName} size={size} color={color} />
     ),
+    headerShown:false, 
   };
 };
 
@@ -80,11 +81,14 @@ export default function App() {
   return (
     <>
       <ThemeProvider theme={theme}>
-        <RestaurantsContextProvider>
-          <NavigationContainer>
-            <MyTabs/>
-          </NavigationContainer>
-        </RestaurantsContextProvider>
+        <LocationContextProvider>
+          <RestaurantsContextProvider>
+            <NavigationContainer>
+              <MyTabs/>
+            </NavigationContainer>
+          </RestaurantsContextProvider>
+        </LocationContextProvider>
+      
       </ThemeProvider>
       <ExpoStatusBar style="auto" />
     </>
