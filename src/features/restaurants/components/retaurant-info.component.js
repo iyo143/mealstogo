@@ -17,8 +17,9 @@ export const RestaurantInfo = ({restaurant = {}}) => {
           ],
         address = "100 some random street",
         isOpenNow = true,
-        rating = 3.2,
+        rating = 1.2,
         isCloseTemporarily =true,
+        placeId
     } = restaurant; 
 
     const ratingArray = Array.from (new Array(Math.floor(rating)));
@@ -30,8 +31,8 @@ export const RestaurantInfo = ({restaurant = {}}) => {
                 <Text variant = "label" >{name}</Text>
                 <SpaceBetween>
                     <Rating>
-                        {ratingArray.map(()=> (
-                            <SvgXml xml={star} width={20} height={20}/>
+                        {ratingArray.map((_, i)=> (
+                            <SvgXml key={`star-${placeId}-${i}`}xml={star} width={20} height={20}/>
                         ))}
                     </Rating>
                     <Open>

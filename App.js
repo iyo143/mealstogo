@@ -46,6 +46,8 @@ const createScreenOptions = ({route})=>{
     tabBarIcon: ({size, color})=>(
        <Ionicons name={iconName} size={size} color={color} />
     ),
+    tabBarInactiveTintColor: "gray",
+    tabBarActiveTintColor: "tomato",
     headerShown:false, 
   };
 };
@@ -54,10 +56,7 @@ function MyTabs(){
   return(
     <Tab.Navigator
       screenOptions={createScreenOptions}
-      tabBarOptions = {{
-        activeTintColor: "tomato",
-        inactiveTintColor: "gray"
-      }}
+    
     >
       <Tab.Screen name = "Restaurant" component={RestoScreen}/>
       <Tab.Screen name = "Map" component={MapScreen}/>
