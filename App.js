@@ -1,69 +1,17 @@
-import { RestaurantScreen } from "./src/features/restaurants/screens/restaurant.screen";
 import { ThemeProvider } from "styled-components/native";
 import AppLoading from 'expo-app-loading';
 import {  useFonts as useOswald, Oswald_400Regular,} from '@expo-google-fonts/oswald';
 import { useFonts as useLato, Lato_400Regular,} from '@expo-google-fonts/lato';
 import { StatusBar as ExpoStatusBar } from "expo-status-bar";
 import { theme } from "./src/infrastructure/theme";
-import { Ionicons } from '@expo/vector-icons';
 import { NavigationContainer } from "@react-navigation/native";
 import { createBottomTabNavigator} from "@react-navigation/bottom-tabs";
 import { Text, View,  } from 'react-native';
 import { restaurantRequest } from "./src/services/restaurants/restaurant.service";
 import { RestaurantsContextProvider } from "./src/services/restaurants/restaurant.context";
 import { LocationContextProvider } from "./src/services/location/location.context";
-
-function RestoScreen(){
-  return (
-    <RestaurantScreen/>
-  );
-}
-function MapScreen(){
-  return (
-    <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
-      <Text>Map!</Text>
-    </View>
-  );
-}
-function SettingScreen(){
-  return (
-    <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
-      <Text>Settings!</Text>
-    </View>
-  );
-}
-
-const Tab = createBottomTabNavigator();
-
-const TAB_ICON =  {
-  Restaurant: "md-restaurant",
-  Settings: "md-settings",
-  Map: "md-map",
-}
-const createScreenOptions = ({route})=>{
-  const iconName = TAB_ICON[route.name];
-  return{
-    tabBarIcon: ({size, color})=>(
-       <Ionicons name={iconName} size={size} color={color} />
-    ),
-    tabBarInactiveTintColor: "gray",
-    tabBarActiveTintColor: "tomato",
-    headerShown:false, 
-  };
-};
-
-function MyTabs(){
-  return(
-    <Tab.Navigator
-      screenOptions={createScreenOptions}
-    
-    >
-      <Tab.Screen name = "Restaurant" component={RestoScreen}/>
-      <Tab.Screen name = "Map" component={MapScreen}/>
-      <Tab.Screen name = "Settings" component={SettingScreen}/>
-    </Tab.Navigator>
-  );
-}
+import { AppNavigator } from "./src/infrastructure/navigation/app.navigator";
+import { Navigation } from "./src/infrastructure/navigation";
 
 export default function App() {
 
@@ -82,9 +30,7 @@ export default function App() {
       <ThemeProvider theme={theme}>
         <LocationContextProvider>
           <RestaurantsContextProvider>
-            <NavigationContainer>
-              <MyTabs/>
-            </NavigationContainer>
+            <Navigation/>
           </RestaurantsContextProvider>
         </LocationContextProvider>
       

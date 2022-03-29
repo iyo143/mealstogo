@@ -1,16 +1,18 @@
 import React, {useContext} from "react";
 import { Searchbar } from 'react-native-paper';
-import { FlatList, View } from "react-native";
+import { FlatList, Pressable, View } from "react-native";
 import { RestaurantInfo } from "../components/retaurant-info.component";
-import { SafeContainer, SearchBarContainer, RestaurantCardContainer, RestaurantLIst } from "./rastaurant.screen.style";
+import { SafeContainer, SearchBarContainer, RestaurantLIst } from "./rastaurant.screen.style";
 import { RestaurantContext } from "../../../services/restaurants/restaurant.context";
 import { ActivityIndicator, Colors } from 'react-native-paper';
 import { Search } from "../components/search.component";
+import { TouchableOpacity } from "react-native-gesture-handler";
 
-export const RestaurantScreen = () => {
+export const RestaurantScreen = ({ navigation }) => {
 
     
     const {isLoading, error, restaurants} = useContext(RestaurantContext);
+    console.log(navigation)
     return(
       <SafeContainer >
         {isLoading && (
@@ -18,14 +20,15 @@ export const RestaurantScreen = () => {
               <ActivityIndicator animating={true} color={Colors.red800} />
           </View>
         )
-          
         }
       <Search/>
       <RestaurantLIst
         data = {restaurants}
         renderItem = {({item})=> {
         return(
-            <RestaurantInfo restaurant={item}/>
+            <TouchableOpacity onPress={()=> navigation.navigate("RestoDetails",{resto:item})}>
+              <RestaurantInfo restaurant={item}/>
+            </TouchableOpacity>
           );
         }}
         keyExtractor = {(item) => item.name}
